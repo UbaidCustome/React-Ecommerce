@@ -8,30 +8,43 @@ import { AdminAuth } from '../context/AdminAuth';
 const Login = () => {
     // localStorage.removeItem('admin');
     const login = useContext(AdminAuth);
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const navigate = useNavigate();
-  const onSubmit = async (data) => {
-    const res = await fetch(`${api}/admin/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }).then(res => res.json()).then(result => {
-        if(result.status == 1){
-            const admin ={
-                token: result.token
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const navigate = useNavigate();
+    const onSubmit = async (data) => {
+        try {
+            const res = await fetch(`${api}/admin/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+    
+            const result = await res.json();
+    
+            if (result.status === 1) {
+                const admin = {
+                    token: result.token
+                };
+    
+                toast.success(result.message);
+    
+                // Store the admin object in localStorage
+                localStorage.setItem('authtoken', JSON.stringify(admin));
+    
+                // Debugging: Log the stored data
+                console.log("Stored in LocalStorage:", JSON.parse(localStorage.getItem('authtoken')));
+    
+                login.login(admin);
+                navigate('/admin/dashboard');
+            } else {
+                toast.error(result.message);
             }
-            toast.success(result.message);
-            localStorage.setItem('admin', JSON.stringify(admin));
-            login.login(admin);
-            navigate('/admin/dashboard');
+        } catch (error) {
+            console.error('Error during login:', error);
+            toast.error('An error occurred during login.');
         }
-        else{
-            toast.error(result.message);
-        }
-    });
-  }
+    };
   return (
     <div className='container d-flex justify-content-center py-5 align-items-center login'>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -47,7 +60,7 @@ const Login = () => {
                                 pattern: {
                                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                                     message: "Invalid email address"
-                                } 
+                                }
                             })
                         }
                         type="text" 
