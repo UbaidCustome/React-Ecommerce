@@ -10,7 +10,7 @@ const Sidebar = () => {
             <ul>
                 <li><a href='#'>Dashboard</a></li>
                 <li><Link to="/admin/categories">Category</Link></li>
-                <li><a href='#'>Brands</a></li>
+                <li><a href='/admin/brands'>Brands</a></li>
                 <li><a href='#'>Products</a></li>
                 <li><a href='#'>Orders</a></li>
                 <li><a href='#'>Users</a></li>
