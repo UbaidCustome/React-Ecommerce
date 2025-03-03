@@ -4,6 +4,7 @@ import Sidebar from '../../common/Sidebar'
 import { useForm } from 'react-hook-form';
 import { api, apitoken } from '../../common/http';
 import { toast } from 'react-toastify';
+import AdminLayout from '../AdminLayout';
 
 const Edit = () => {
     const token = apitoken();
@@ -75,50 +76,52 @@ const Edit = () => {
         }        
     }
     return (
-        <div className='container'>
-            <div className='row'>
-                <div className='d-flex justify-content-between mt-5 pb-3'>
-                    <h3 className='pb-0 mb-0'>Edit Data</h3>
-                    <Link to='/admin/category' className='btn btn-primary'>Back</Link>
-                </div>
-                <div className='col-md-3'>
-                    <Sidebar/>
-                </div>
-                <div className='col-md-9'>
-                    <form onSubmit={handleSubmit(updateCategory)}>
-                        <div className='card shadow'>
-                            <div className='card-body p-4'>
-                                <div className='mb-3'>
-                                    <label htmlFor='' className='form-label'>Name</label>
-                                    <input {...register('name',{
-                                        required:'Name field is requried'
-                                    })} 
-                                    type="text" className={`form-control ${errors.name ? 'is-invalid' : ''}`}  />
-                                    {
-                                        errors.name && <div className='invalid-feedback'>{errors.name.message}</div>
-                                    }                            
-                                </div>
-                                <div className='mb-3'>
-                                    <label htmlFor='' className='form-label'>Status</label>
-                                    <select {...register('status',{
-                                        required:'Please Select One Option'
-                                    })}
-                                    className={`form-control ${errors.status ? 'is-invalid' : ''}`}>
-                                        <option value="">Please Select</option>
-                                        <option value="0">Block</option>
-                                        <option value="1">Active</option>
-                                    </select>
-                                    {
-                                        errors.status && <div className='invalid-feedback'>{errors.status.message}</div>
-                                    }                                
+        <AdminLayout>
+            <div className='container'>
+                <div className='row'>
+                    <div className='d-flex justify-content-between mt-5 pb-3'>
+                        <h3 className='pb-0 mb-0'>Edit Data</h3>
+                        <Link to='/admin/categories' className='btn btn-primary'>Back</Link>
+                    </div>
+                    <div className='col-md-3'>
+                        <Sidebar/>
+                    </div>
+                    <div className='col-md-9'>
+                        <form onSubmit={handleSubmit(updateCategory)}>
+                            <div className='card shadow'>
+                                <div className='card-body p-4'>
+                                    <div className='mb-3'>
+                                        <label htmlFor='' className='form-label'>Name</label>
+                                        <input {...register('name',{
+                                            required:'Name field is requried'
+                                        })} 
+                                        type="text" className={`form-control ${errors.name ? 'is-invalid' : ''}`}  />
+                                        {
+                                            errors.name && <div className='invalid-feedback'>{errors.name.message}</div>
+                                        }                            
+                                    </div>
+                                    <div className='mb-3'>
+                                        <label htmlFor='' className='form-label'>Status</label>
+                                        <select {...register('status',{
+                                            required:'Please Select One Option'
+                                        })}
+                                        className={`form-control ${errors.status ? 'is-invalid' : ''}`}>
+                                            <option value="">Please Select</option>
+                                            <option value="0">Block</option>
+                                            <option value="1">Active</option>
+                                        </select>
+                                        {
+                                            errors.status && <div className='invalid-feedback'>{errors.status.message}</div>
+                                        }                                
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <button disabled={disable} className='btn btn-primary mt-3'>Submit</button>
-                    </form>
+                            <button disabled={disable} className='btn btn-primary mt-3'>Submit</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>    
+        </AdminLayout>    
     )
 }
 
