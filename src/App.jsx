@@ -9,6 +9,7 @@ import Login from './components/admin/Login'
 import { ToastContainer, toast } from 'react-toastify';
 import Dashboard from './components/admin/Dashboard'
 import { AdminRequireAuth } from './components/admin/adminRequireAuth'
+
 import {default as ShowCategories} from './components/admin/category/Show'
 import {default as CreateCategories} from './components/admin/category/Create'
 import {default as EditCategories} from './components/admin/category/Edit'
@@ -16,6 +17,10 @@ import {default as EditCategories} from './components/admin/category/Edit'
 import {default as ShowBrands} from './components/admin/brand/Show'
 import {default as CreateBrand} from './components/admin/brand/Create'
 import {default as EditBrand} from './components/admin/brand/Edit'
+
+import {default as ShowProducts} from './components/admin/product/Show'
+import {default as CreateProduct} from './components/admin/product/Create'
+import {default as EditProduct} from './components/admin/product/Edit'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -65,6 +70,21 @@ function App() {
           <Route path="/admin/brands/edit/:id" element={
             <AdminRequireAuth>
               <EditBrand />
+            </AdminRequireAuth>
+          } />
+          <Route path="/admin/product" element={
+            <AdminRequireAuth>
+              <ShowProducts />
+            </AdminRequireAuth>
+          } />
+          <Route path="/admin/product/create" element={
+            <AdminRequireAuth>
+              <CreateProduct />
+            </AdminRequireAuth>
+          } />
+          <Route path="/admin/product/edit/:id" element={
+            <AdminRequireAuth>
+              <EditProduct />
             </AdminRequireAuth>
           } />
           

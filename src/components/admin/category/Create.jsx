@@ -14,9 +14,9 @@ const Create = () => {
     const saveCategory = async(data) =>{
         const formattedData = {
             ...data,
-            status: parseInt(data.status)  // ✅ Ensure status is a number
+            status: parseInt(data.status)
         };
-        console.log("Submitting Data:", formattedData);  // ✅ Debugging
+        console.log("Submitting Data:", formattedData);
         setDisable(true)
         // console.log(data)
         try {
